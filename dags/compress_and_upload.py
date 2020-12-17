@@ -19,7 +19,9 @@ debug_fp = "/srv/airflow/debug"
 BUCKET_NAME = "solar-pv-nowcasting-data"
 PREFIX = "satellite/EUMETSAT/SEVIRI_RSS/native/"
 
-import logging as log
+import logging
+
+logger = logging.getLogger("airflow.task")
 
 
 args = {
@@ -37,12 +39,12 @@ dag = DAG(
 
 def compress_files():
     """Compresses downloaded .nat files"""
-    compress_downloaded_files(data_dir=data_dir, sorted_dir=sorted_dir, log=log)
+    compress_downloaded_files(data_dir=data_dir, sorted_dir=sorted_dir, log=logger)
 
 
 def upload_files():
     """Upload compressed files to GCP storage"""
-    upload_compressed_files(sorted_dir, BUCKET_NAME, PREFIX, log=log)
+    upload_compressed_files(sorted_dir, BUCKET_NAME, PREFIX, log=logger)
 
 
 task1 = PythonOperator(

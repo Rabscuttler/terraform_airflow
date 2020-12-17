@@ -45,6 +45,7 @@ wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/
 bash ~/miniconda.sh -b -p ~/miniconda 
 rm ~/miniconda.sh
 export PATH=~/miniconda/bin:$PATH
+
 # add environment.yml file
 conda env create -f environment.yml
 conda init bash
